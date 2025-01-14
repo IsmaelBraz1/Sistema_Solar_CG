@@ -1,0 +1,22 @@
+{
+  "name": "test1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./src/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "parcel": "^2.13.3",
+    "save-dev": "^0.0.1-security",
+    "three": "^0.172.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+  
+
+}
