@@ -65,22 +65,21 @@ function createPlanete(size, texture, position, ring, lua) {
     });
     const mesh = new THREE.Mesh(geo, mat);
 	const solarObj = new THREE.Object3D();
-
-	if(lua == true){
+    solarObj.add(mesh);
+	if(lua){
 		const SysLuaPlanet = new THREE.Object3D();
-		SysLuaPlanet.add(mesh);
+		//SysLuaPlanet.add(mesh);
 
-		const luaGeo = new THREE.SphereGeometry(2.2, 30,30)
+		const luaGeo = new THREE.SphereGeometry(lua.size, 30,30)
 		const luaMat = new THREE.MeshBasicMaterial({color: 0xFFFFFF})
-		const lua = new THREE.Mesh(luaGeo, luaMat);
-		lua.position.x = size+5;
-		lua.rotateY(0.3)
-		SysLuaPlanet.add(lua);
+		const luaMesh = new THREE.Mesh(luaGeo, luaMat);
+		luaMesh.position.x = lua.position;
+		SysLuaPlanet.add(luaMesh);
 		SysLuaPlanet.position.x = position;
 		
 		solarObj.add(SysLuaPlanet);
 	}else{
-		solarObj.add(mesh);
+		
 		if(ring) {
 			const ringGeo = new THREE.RingGeometry(
 				ring.innerRadius,
@@ -101,33 +100,13 @@ function createPlanete(size, texture, position, ring, lua) {
     return {mesh, obj: solarObj}
 }
 
-/*function createLua() {
-    const terrageo = new THREE.SphereGeometry(6, 30, 30);
-    const terramat = new THREE.MeshBasicMaterial({map: textureLoader.load(earthTexture) });
-	const terra = new THREE.Mesh(terrageo, terramat);
-
-	const luaGeo = new THREE.SphereGeometry(2.2, 30,30)
-	const luaMat = new THREE.MeshBasicMaterial({color: 0xFFFFFF})
-	const lua = new THREE.Mesh(luaGeo, luaMat);
-
-	lua.position.x = 9;
-	const Objt = new THREE.Object3D();
-	Objt.add(lua)
-	Objt.add(terra);
-	Objt.position.x = 62;
-	scene.add(Objt)
-
-    return {lua, obj: Objt}
-}*/
-
-
-
-
-
 
 const mercury = createPlanete(3.2, mercuryTexture, 28);
 const venus = createPlanete(5.8, venusTexture, 44);
-const earth = createPlanete(6, earthTexture, 62, false, true);
+const earth = createPlanete(6, earthTexture, 62, false, {
+    size: 2,
+    position: 10
+});
 const mars = createPlanete(4, marsTexture, 78);
 const jupiter = createPlanete(12, jupiterTexture, 100);
 const saturn = createPlanete(10, saturnTexture, 138, {
@@ -161,7 +140,11 @@ function animate() {
     pluto.mesh.rotateY(0.008);
 
 	
-	
+	// Movimenta a lua ao redor do planeta (se houver) 
+    if (earth.obj.children.length > 1) {
+        earth.obj.children[1].rotateY(0.02)
+         
+    }
 
     //Around-sun-rotation
     mercury.obj.rotateY(0.04);
@@ -173,7 +156,6 @@ function animate() {
     uranus.obj.rotateY(0.0004);
     neptune.obj.rotateY(0.0001);
     pluto.obj.rotateY(0.00007);
-	
     renderer.render(scene, camera);
 }
 
