@@ -13,27 +13,29 @@ import saturnRingTexture from '/img/saturn ring.png';
 import uranusTexture from '/img/uranus.jpg';
 import uranusRingTexture from '/img/uranus ring.png';
 import neptuneTexture from '/img/neptune.jpg';
+import moonTexture from '/img/moon.jpg';
 import plutoTexture from '/img/pluto.jpg';
 import { color } from 'three/tsl';
 
 const renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
-
 document.body.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(
-    45,
+    70,
     window.innerWidth / window.innerHeight,
     0.1,
-    1000
+    3000
 );
 
 const orbit = new OrbitControls(camera, renderer.domElement);
+orbit.enableDamping = true; 
+orbit.dampingFactor = 0.05;
 
-camera.position.set(-90, 140, 140);
+camera.position.set(-290, 190, 190);
 orbit.update();
 
 const ambientLight = new THREE.AmbientLight(0x333333);
@@ -51,117 +53,129 @@ scene.background = cubeTextureLoader.load([
 
 const textureLoader = new THREE.TextureLoader();
 
-const sunGeo = new THREE.SphereGeometry(16, 30, 30);
+
+const sunGeo = new THREE.SphereGeometry(60, 50, 50);
 const sunMat = new THREE.MeshBasicMaterial({
     map: textureLoader.load(sunTexture)
 });
 const sun = new THREE.Mesh(sunGeo, sunMat);
 scene.add(sun);
 
-function createPlanete(size, texture, position, ring, lua) {
-	const geo = new THREE.SphereGeometry(size, 30, 30);
+const sunLight = new THREE.PointLight(0xffffff, 1, 500);
+sunLight.position.set(0, 0, 0); // Posição do Sol no centro do sistema solar
+scene.add(sunLight);
+
+
+
+
+function createPlanete(size, texture, position,rotacao, translacao, anel) {
+    //definição das propiedades basicas
+    const geo = new THREE.SphereGeometry(size, 50, 50);
     const mat = new THREE.MeshBasicMaterial({
         map: textureLoader.load(texture)
     });
     const mesh = new THREE.Mesh(geo, mat);
-	const solarObj = new THREE.Object3D();
-    solarObj.add(mesh);
-	if(lua){
-		const SysLuaPlanet = new THREE.Object3D();
-		//SysLuaPlanet.add(mesh);
+    mesh.rotacao = rotacao;
+    mesh.translacao = translacao;
+    mesh.position.x = position;
 
-		const luaGeo = new THREE.SphereGeometry(lua.size, 30,30)
-		const luaMat = new THREE.MeshBasicMaterial({color: 0xFFFFFF})
-		const luaMesh = new THREE.Mesh(luaGeo, luaMat);
-		luaMesh.position.x = lua.position;
-		SysLuaPlanet.add(luaMesh);
-		SysLuaPlanet.position.x = position;
-		
-		solarObj.add(SysLuaPlanet);
-	}else{
-		
-		if(ring) {
-			const ringGeo = new THREE.RingGeometry(
-				ring.innerRadius,
-				ring.outerRadius,
-				32);
-			const ringMat = new THREE.MeshBasicMaterial({
-				map: textureLoader.load(ring.texture),
-				side: THREE.DoubleSide
-			});
-			const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-			solarObj.add(ringMesh);
-			ringMesh.position.x = position;
-			ringMesh.rotation.x = -0.5 * Math.PI;
-		}
-		mesh.position.x = position;
-	}
+    //adiciona ao um objeto3D, que da a liberdade de translacao ao redor do centro
+    const solarObj = new THREE.Object3D();
+    solarObj.add(mesh);
+
+    if (anel) {
+        const anelGeo = new THREE.RingGeometry(
+            anel.innerRadius,
+            anel.outerRadius,
+            32);
+        const anelMat = new THREE.MeshBasicMaterial({
+            map: textureLoader.load(anel.texture),
+            side: THREE.DoubleSide
+        });
+        const anelMesh = new THREE.Mesh(anelGeo, anelMat);
+        solarObj.add(anelMesh);
+        anelMesh.position.x = position;
+        anelMesh.rotation.x = -0.5 * Math.PI;
+    }
+   
     scene.add(solarObj);
-    return {mesh, obj: solarObj}
+
+    //rentona o objeto em si, e o objeto3D onde ele esta inserido
+    return { mesh, obj: solarObj }
 }
 
 
-const mercury = createPlanete(3.2, mercuryTexture, 28);
-const venus = createPlanete(5.8, venusTexture, 44);
-const earth = createPlanete(6, earthTexture, 62, false, {
+//cria as luas
+function criarLua(size,texture,position,rotacao, translacao, planeta, positionY) {
+    const LuaPlanet = new THREE.Object3D();
+    LuaPlanet.position.x = planeta.mesh.position.x;
+   
+    const luaGeo = new THREE.SphereGeometry(size, 30, 30)
+    const luaMat = new THREE.MeshBasicMaterial({ map: textureLoader.load(texture) })
+    const mesh = new THREE.Mesh(luaGeo, luaMat);
+    mesh.position.x = position;
+    mesh.rotacao = rotacao;
+    mesh.translacao = translacao;
+    if(positionY){
+        mesh.position.y = positionY;
+    }
+   
+    LuaPlanet.add(mesh)
+    planeta.obj.add(LuaPlanet)
+ 
+    return { mesh, obj: LuaPlanet}
+}
+
+
+const mercury = createPlanete(4, mercuryTexture, 100, 0.01, 0.02);
+const venus = createPlanete(9.6, venusTexture, 160, 0.008, 0.004);
+const earth = createPlanete(10, earthTexture, 220, 0.006, 0.007, false, {
     size: 2,
-    position: 10
+    position: 20
 });
-const mars = createPlanete(4, marsTexture, 78);
-const jupiter = createPlanete(12, jupiterTexture, 100);
-const saturn = createPlanete(10, saturnTexture, 138, {
-    innerRadius: 10,
-    outerRadius: 20,
+const mars = createPlanete(5.2, marsTexture, 360, 0.009, 0.01);
+const jupiter = createPlanete(24, jupiterTexture, 420, 0.003, 0.003);
+const saturn = createPlanete(26.8, saturnTexture, 540, 0.004, 0.004, {
+    innerRadius: 24.8,
+    outerRadius: 49.6,
     texture: saturnRingTexture
 });
-const uranus = createPlanete(7, uranusTexture, 176, {
-    innerRadius: 7,
-    outerRadius: 12,
+const uranus = createPlanete(23.2, uranusTexture, 630, 0.005, 0.007, {
+    innerRadius: 26.9,
+    outerRadius: 36,
     texture: uranusRingTexture
 });
-const neptune = createPlanete(7, neptuneTexture, 200);
-const pluto = createPlanete(2.8, plutoTexture, 216);
-
-const pointLight = new THREE.PointLight(0xFFFFFF, 2, 300);
-scene.add(pointLight);
+const neptune = createPlanete(21.6, neptuneTexture, 780, 0.004, 0.004);
 
 
-function animate() {
-    //Self-rotation
-    sun.rotateY(0.004);
-    mercury.mesh.rotateY(0.004);
-    venus.mesh.rotateY(0.002);
-    earth.mesh.rotateY(0.02);
-    mars.mesh.rotateY(0.018);
-    jupiter.mesh.rotateY(0.04);
-    saturn.mesh.rotateY(0.038);
-    uranus.mesh.rotateY(0.03);
-    neptune.mesh.rotateY(0.032);
-    pluto.mesh.rotateY(0.008);
+const lua = criarLua(2.5, moonTexture,15, 0.03, 0.03,earth);
+const io = criarLua(2.2, moonTexture, 30, 0.03, 0.05,jupiter, 3);
+const europa = criarLua(2.1,moonTexture, 35, 0.03, 0.03,jupiter, -10);
+const titan = criarLua(3,moonTexture, 55, 0.02, 0.02,saturn, 5);
 
-	
-	// Movimenta a lua ao redor do planeta (se houver) 
-    if (earth.obj.children.length > 1) {
-        earth.obj.children[1].rotateY(0.02)
-         
+const astros = [mercury, venus, mars, earth, jupiter, saturn, uranus, neptune,lua, io, europa,titan];
+
+function movimento(object) {
+    object.mesh.rotateY(object.mesh.rotacao)
+    object.obj.rotateY(object.mesh.translacao);
+}
+function movimentototal() {
+    for (var i = 0; i < astros.length; i++) {
+        movimento(astros[i]);
     }
-
-    //Around-sun-rotation
-    mercury.obj.rotateY(0.04);
-    venus.obj.rotateY(0.015);
-    earth.obj.rotateY(0.01);
-    mars.obj.rotateY(0.008);
-    jupiter.obj.rotateY(0.002);
-    saturn.obj.rotateY(0.0009);
-    uranus.obj.rotateY(0.0004);
-    neptune.obj.rotateY(0.0001);
-    pluto.obj.rotateY(0.00007);
+}
+function animate() {
+    
+    sun.rotateY(0.004);
+    
+    movimentototal();
+   
     renderer.render(scene, camera);
 }
 
 renderer.setAnimationLoop(animate);
 
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
