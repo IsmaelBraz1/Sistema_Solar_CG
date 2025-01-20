@@ -1,0 +1,114 @@
+/* style.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#threejs-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+button#increaseButton {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    top: 500px !important;
+    left: 45% !important;
+}
+
+button#speedButton:hover {
+    background-color: #0056b3;
+}
+
+button#speedButton:active {
+    background-color: #004494;
+}
+
+button#stopButton {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    top: 500px !important;
+    left: 75% !important;
+}
+
+select#selectedStar{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    top: 500px !important;
+    left: 19% !important;
+}
+
+button#decreaseButton {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    top: 500px !important;
+    left: 61% !important;
+}
+
+select#selectMove{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    top: 500px !important;
+    left: 31% !important;
+}
