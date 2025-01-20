@@ -41,7 +41,7 @@ button#increaseButton {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    top: 500px !important;
+    top: 600px !important;
     left: 45% !important;
 }
 
@@ -64,7 +64,7 @@ button#stopButton {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    top: 500px !important;
+    top: 600px !important;
     left: 75% !important;
 }
 
@@ -79,7 +79,7 @@ select#selectedStar{
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    top: 500px !important;
+    top: 600px !important;
     left: 19% !important;
 }
 
@@ -94,7 +94,7 @@ button#decreaseButton {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    top: 500px !important;
+    top: 600px !important;
     left: 61% !important;
 }
 
@@ -109,6 +109,6 @@ select#selectMove{
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    top: 500px !important;
+    top: 600px !important;
     left: 31% !important;
 }
