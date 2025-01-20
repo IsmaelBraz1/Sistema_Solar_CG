@@ -473,8 +473,3 @@ pararRotacao.addEventListener('click', () => {
     }
     
 });
-
-
-
-
-
