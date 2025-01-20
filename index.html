@@ -3,12 +3,36 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Sistema Solar</title>
+		<link rel="stylesheet" href="/css/style.css">
 		<style>
 			body { margin: 0;}
 
 		</style>
 	</head>
 	<body>
+		<div class="container">
+        <div id="threejs-container">
+            <select id="selectedStar">
+                <option value="sol">Sol</option>
+                <option value="mercury">Mercúrio</option>
+				<option value="venus">Vênus</option>
+				<option value="earth">Terra</option>
+				<option value="mars">Marte</option>
+				<option value="jupiter">Júpiter</option>
+				<option value="saturn">Saturno</option>
+				<option value="uranus">Urano</option>
+				<option value="neptune">Neturno</option>
+            </select>
+			<select id="selectMove">
+				<option value="rotation">Rotação</option>
+				<option value="translation">Translação</option>
+			</select>
+
+            <button id="increaseButton">Aumentar Velocidade</button>
+            <button id="decreaseButton">Diminuir Velocidade</button>
+            <button id="stopButton">Parar Rotação</button>
+        </div>
+    </div>
 		<script type="module" src="/js/main.js"></script>
 	</body>
 </html>

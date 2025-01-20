@@ -14,8 +14,7 @@ import uranusTexture from '/img/uranus.jpg';
 import uranusRingTexture from '/img/uranus ring.png';
 import neptuneTexture from '/img/neptune.jpg';
 import moonTexture from '/img/moon.jpg';
-import plutoTexture from '/img/pluto.jpg';
-import { color } from 'three/tsl';
+
 
 const renderer = new THREE.WebGLRenderer();
 
@@ -156,7 +155,7 @@ const titan = criarLua(3,moonTexture, 55, 0.02, 0.02,saturn, 5);
 const astros = [mercury, venus, mars, earth, jupiter, saturn, uranus, neptune,lua, io, europa,titan];
 
 function movimento(object) {
-    object.mesh.rotateY(object.mesh.rotacao)
+    object.mesh.rotateY(object.mesh.rotacao);
     object.obj.rotateY(object.mesh.translacao);
 }
 function movimentototal() {
@@ -164,13 +163,17 @@ function movimentototal() {
         movimento(astros[i]);
     }
 }
+let sunRotation = 0.004;
+let mercuryRotation = 0.01;
+
 function animate() {
     
-    sun.rotateY(0.004);
+    sun.rotateY(sunRotation);
     
     movimentototal();
    
     renderer.render(scene, camera);
+    //console.log(mercury.mesh.rotation.y);
 }
 
 renderer.setAnimationLoop(animate);
@@ -180,3 +183,226 @@ window.addEventListener('resize', function () {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+function atualizaMovimento(object){
+    object.mesh.rotateY(object.mesh.rotacao+0.01);
+}
+
+const selectedStar = document.getElementById("selectedStar");
+const aumentarVelocidade = document.getElementById("increaseButton");
+const diminuirVelocidade = document.getElementById('decreaseButton');
+const pararRotacao = document.getElementById('stopButton');
+const typeRotation = document.getElementById('selectMove');
+function getMove(){
+    return typeRotation.value === 'rotation' ? 'rotation' : 'translation';
+}
+
+aumentarVelocidade.addEventListener('click', () => {
+    const tipo = getMove();
+    if(tipo === 'rotation'){
+        switch(selectedStar.value){
+            case 'sol':
+                sunRotation += 0.004;
+                break;
+            case 'mercury':
+                mercury.mesh.rotacao += 0.01;
+                break;
+            case 'venus':
+                venus.mesh.rotacao += 0.08;
+                break;
+            case 'earth':
+                earth.mesh.rotacao += 0.006;
+                break;
+            case 'mars':
+                mars.mesh.rotacao += 0.009;
+                break;
+            case 'jupiter':
+                jupiter.mesh.rotacao += 0.003;
+                break;
+            case 'saturn':
+                saturn.mesh.rotacao += 0.004;
+                break;
+            case 'uranus':
+                uranus.mesh.rotacao += 0.005
+                break;
+            case 'neptune':
+                neptune.mesh.rotacao += 0.004;
+                break;
+    
+    
+        }
+    }else{
+        switch(selectedStar.value){
+            case 'sol':
+                sunRotation += 0.004;
+                break;
+            case 'mercury':
+                mercury.mesh.translacao += 0.02;
+                break;
+            case 'venus':
+                venus.mesh.translacao += 0.004;
+                break;
+            case 'earth':
+                earth.mesh.translacao += 0.007;
+                break;
+            case 'mars':
+                mars.mesh.translacao += 0.01;
+                break;
+            case 'jupiter':
+                jupiter.mesh.translacao += 0.003;
+                break;
+            case 'saturn':
+                saturn.mesh.translacao += 0.004;
+                break;
+            case 'uranus':
+                uranus.mesh.translacao += 0.007;
+                break;
+            case 'neptune':
+                neptune.mesh.translacao += 0.004;
+                break;
+    
+    
+        }
+    }
+    
+});
+
+diminuirVelocidade.addEventListener('click', () => {
+    const tipo = getMove();
+    if(tipo === 'rotation'){
+        switch(selectedStar.value){
+            case 'sol':
+                sunRotation -= 0.004;
+                break;
+            case 'mercury':
+                mercury.mesh.rotacao -= 0.01;
+                break;
+            case 'venus':
+                venus.mesh.rotacao -= 0.08;
+                break;
+            case 'earth':
+                earth.mesh.rotacao -= 0.0006;
+                break;
+            case 'mars':
+                mars.mesh.rotacao -= 1;
+                console.log(mars.mesh.rotacao);
+                break;
+            case 'jupiter':
+                jupiter.mesh.rotacao -= 0.003;
+                break;
+            case 'saturn':
+                saturn.mesh.rotacao -= 0.004;
+                break;
+            case 'uranus':
+                uranus.mesh.rotacao -= 0.005
+                break;
+            case 'neptune':
+                neptune.mesh.rotacao -= 0.004;
+                break;
+        }
+    }else{
+        switch(selectedStar.value){
+        case 'sol':
+            sunRotation -= 0.004;
+            break;
+        case 'mercury':
+            mercury.mesh.translacao -= 0.01;
+            break;
+        case 'venus':
+            venus.mesh.translacao -= 0.08;
+            break;
+        case 'earth':
+            earth.mesh.translacao -= 0.0006;
+            break;
+        case 'mars':
+            mars.mesh.translacao -= 1;
+            break;
+        case 'jupiter':
+            jupiter.mesh.translacao -= 0.003;
+            break;
+        case 'saturn':
+            saturn.mesh.translacao -= 0.004;
+            break;
+        case 'uranus':
+            uranus.mesh.translacao -= 0.005
+            break;
+        case 'neptune':
+            neptune.mesh.translacao -= 0.004;
+            break;
+    }
+    }
+    
+});
+
+pararRotacao.addEventListener('click', () => {
+    const tipo = getMove();
+    if(tipo === 'rotation'){
+        switch(selectedStar.value){
+            case 'sol':
+                sunRotation = 0;
+                break;
+            case 'mercury':
+                mercury.mesh.rotacao = 0;
+                break;
+            case 'venus':
+                venus.mesh.rotacao = 0;
+                break;
+            case 'earth':
+                earth.mesh.rotacao = 0;
+                break;
+            case 'mars':
+                mars.mesh.rotacao = 0;
+                break;
+            case 'jupiter':
+                jupiter.mesh.rotacao = 0;
+                break;
+            case 'saturn':
+                saturn.mesh.rotacao = 0;
+                break;
+            case 'uranus':
+                uranus.mesh.rotacao = 0
+                break;
+            case 'neptune':
+                neptune.mesh.rotacao = 0;
+                break;
+    
+    
+        }
+    }else{
+        switch(selectedStar.value){
+            case 'sol':
+                sunRotation = 0;
+                break;
+            case 'mercury':
+                mercury.mesh.translacao = 0;
+                break;
+            case 'venus':
+                venus.mesh.translacao = 0;
+                break;
+            case 'earth':
+                earth.mesh.translacao = 0;
+                break;
+            case 'mars':
+                mars.mesh.translacao = 0;
+                break;
+            case 'jupiter':
+                jupiter.mesh.translacao = 0;
+                break;
+            case 'saturn':
+                saturn.mesh.translacao = 0;
+                break;
+            case 'uranus':
+                uranus.mesh.translacao = 0
+                break;
+            case 'neptune':
+                neptune.mesh.translacao = 0;
+                break;
+    
+    
+        }
+    }
+    
+});
+
+
+
