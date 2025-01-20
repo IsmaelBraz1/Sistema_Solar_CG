@@ -15,7 +15,6 @@ import uranusRingTexture from '/img/uranus ring.png';
 import neptuneTexture from '/img/neptune.jpg';
 import moonTexture from '/img/moon.jpg';
 
-
 const renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -228,6 +227,18 @@ aumentarVelocidade.addEventListener('click', () => {
             case 'neptune':
                 neptune.mesh.rotacao += 0.004;
                 break;
+            case 'moon':
+                lua.mesh.rotacao += 0.03;
+                break;
+            case 'titan':
+                titan.mesh.rotacao += 0.02;
+                break;
+            case 'europa':
+                europa.mesh.rotacao += 0.03;
+                break;
+            case 'io':
+                io.mesh.rotacao += 0.03;
+                break;
     
     
         }
@@ -260,7 +271,18 @@ aumentarVelocidade.addEventListener('click', () => {
             case 'neptune':
                 neptune.mesh.translacao += 0.004;
                 break;
-    
+            case 'moon':
+                lua.mesh.translacao += 0.03;
+                break;
+            case 'titan':
+                titan.mesh.translacao += 0.02;
+                break;
+            case 'europa':
+                europa.mesh.translacao += 0.03;
+                break;
+            case 'io':
+                io.mesh.translacao += 0.05;
+                break;
     
         }
     }
@@ -299,6 +321,18 @@ diminuirVelocidade.addEventListener('click', () => {
             case 'neptune':
                 neptune.mesh.rotacao -= 0.004;
                 break;
+            case 'moon':
+                lua.mesh.rotacao -= 0.03;
+                break;
+            case 'titan':
+                titan.mesh.rotacao -= 0.02;
+                break;
+            case 'europa':
+                europa.mesh.rotacao -= 0.03;
+                break;
+            case 'io':
+                io.mesh.rotacao -= 0.03;
+                break;
         }
     }else{
         switch(selectedStar.value){
@@ -328,6 +362,18 @@ diminuirVelocidade.addEventListener('click', () => {
             break;
         case 'neptune':
             neptune.mesh.translacao -= 0.004;
+            break;
+        case 'moon':
+            lua.mesh.translacao -= 0.03;
+            break;
+        case 'titan':
+            titan.mesh.translacao -= 0.02;
+            break;
+        case 'europa':
+            europa.mesh.translacao -= 0.03;
+            break;
+        case 'io':
+            io.mesh.translacao -= 0.05;
             break;
     }
     }
@@ -365,7 +411,19 @@ pararRotacao.addEventListener('click', () => {
             case 'neptune':
                 neptune.mesh.rotacao = 0;
                 break;
-    
+            case 'moon':
+                lua.mesh.rotacao = 0;
+                break;
+            case 'titan':
+                titan.mesh.rotacao = 0;
+                break;
+            case 'europa':
+                europa.mesh.rotacao = 0;
+                break;
+            case 'io':
+                io.mesh.rotacao += 0;
+                break;
+
     
         }
     }else{
@@ -397,12 +455,26 @@ pararRotacao.addEventListener('click', () => {
             case 'neptune':
                 neptune.mesh.translacao = 0;
                 break;
-    
+            case 'moon':
+                lua.mesh.translacao = 0;
+                break;
+            case 'titan':
+                titan.mesh.translacao = 0;
+                break;
+            case 'europa':
+                europa.mesh.translacao = 0;
+                break;
+            case 'io':
+                io.mesh.translacao = 0;
+                break;
+
     
         }
     }
     
 });
+
+
 
 
 
