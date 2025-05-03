@@ -1,7 +1,6 @@
 # Sistema Solar 3D
 
-Um projeto de computação gráfica que simula um sistema solar interativo utilizando **Three.js** para renderização 3D e **Vite** para um ambiente de desenvolvimento rápido e otimizado.
-
+Um projeto de computação gráfica que simula um sistema solar interativo utilizando **Three.js**.
 ---
 
 ## Índice
@@ -19,14 +18,14 @@ Um projeto de computação gráfica que simula um sistema solar interativo utili
 
 ## Descrição
 
-Este projeto recria o sistema solar de maneira simplificada, com planetas orbitando ao redor do sol e animações que demonstram rotações e translações. A ideia é proporcionar uma experiência visual interativa e educativa para usuários interessados em computação gráfica e astronomia.
+Este projeto recria o sistema solar de maneira simplificada, com planetas orbitando ao redor do sol e animações que demonstram rotações e translações. A ideia é proporcionar uma experiência visual interativa e educativa para os usuários.
 
 ---
 
 ## Recursos
 
 - **Animação 3D:** Simulação das órbitas dos planetas e rotação do sol.
-- **Interatividade:** Permite que o usuário interaja com a cena (ex.: rotação da câmera e zoom).
+- **Interatividade:** Permite que o usuário interaja com a cena (ex.: rotação da câmera, zoom, alterar velocidade dos planetas).
 - **Visual moderno:** Renderização em tempo real com efeitos visuais dinâmicos.
 - **Código modular:** Estrutura organizada com componentes simples para facilitar a expansão e manutenção.
 
@@ -45,20 +44,36 @@ Este projeto recria o sistema solar de maneira simplificada, com planetas orbita
 ### Pré-Requisitos
 
 - [Node.js](https://nodejs.org/) (recomendado versão LTS)
-- npm ou yarn
+- npm
 - Git
 
 ### Passos
 
-1. **Clone o repositório:**
+ **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/sistema-solar-3d.git
+   git clone https://github.com/IsmaelBraz1/Sistema_Solar_CG.git
+````
+## Instalação e Execução
 
-AP1 Computação Gráfica
-Alunos: Ismael Braz, Antônio Lucas, Renato Graciano.
-Professor: Iális Cavalcante
+### Instalar three.js
+```bash
+npm install --save three
+```
+### Instalar cannon-es
+```bash
+npm install cannon-es
+```
+### Instalar Vite
+```bash
+npm install --save-dev vite
+```
+### Rodar o código
+```bash
+npx vite
 
-OBS: Instalação do Three.js e Vite via npm
+
+
+colaboradores: Ismael Braz, Antônio Lucas, Renato Graciano.
 
 Video demonstrativo da cena 3D: https://youtu.be/d33M9XQXQhg
