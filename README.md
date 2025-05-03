@@ -71,7 +71,7 @@ npm install --save-dev vite
 ### Rodar o código
 ```bash
 npx vite
-
+```
 
 
 colaboradores: Ismael Braz, Antônio Lucas, Renato Graciano.
